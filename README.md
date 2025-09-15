@@ -1,14 +1,12 @@
-Com certeza. Adicionei uma nova seção de **"Análise Crítica e Interpretações Aprofundadas"** para detalhar o significado dos resultados e incorporei as imagens mais relevantes do repositório para ilustrar visualmente os principais achados.
 
-O `README.md` foi reestruturado para apresentar os resultados e as interpretações de forma mais clara e impactante.
-
------
 
 # Otimização Adaptativa de Classificadores Quânticos Variacionais
 
 ### Um Classificador Híbrido de Alta Performance para o Dataset Iris
 
 [](https://www.python.org/downloads/release/python-3130/) [](https://www.tensorflow.org/) [](https://quantumai.google/cirq) [](https://opensource.org/licenses/MIT)
+
+-----
 
 ## 📖 Sobre o Projeto
 
