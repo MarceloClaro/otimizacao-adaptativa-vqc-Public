@@ -156,7 +156,7 @@ Este trabalho se baseia em conceitos fundamentais da literatura de MLQ:
 
 -----
 
-Título: Otimização de Classificadores Quânticos Variacionais em Ambientes Ruidosos: Uma Análise Sistemática de Arquiteturas e Observáveis no Dataset Iris
+# Título: Otimização de Classificadores Quânticos Variacionais em Ambientes Ruidosos: Uma Análise Sistemática de Arquiteturas e Observáveis no Dataset Iris
 
 Autores:
 Marcelo Claro Laranjeira
@@ -165,7 +165,7 @@ marceloclaro@gmail.com
 
 Secretaria Municipal de Educação - Crateús - CE
 
-Resumo:
+## Resumo:
 O aprendizado de máquina quântico (QML) promete revolucionar a classificação de dados, mas a sua aplicação em hardware quântico de curto prazo (NISQ) é dificultada por desafios de treinabilidade e pela suscetibilidade ao ruído. Este trabalho apresenta uma investigação sistemática sobre o impacto do design de Circuitos Quânticos Variacionais (VQCs) na performance de um classificador quântico híbrido para a classificação binária do dataset Iris. Utilizando o framework TensorFlow Quantum, comparamos três arquiteturas de ansatz (Linear, Alternating e Ring) e um conjunto de observáveis de Pauli (Z, X, Y, e correlações ZZ, XX). Nossos resultados demonstram que a arquitetura Ring, com maior conectividade, alcançou a maior acurácia (63.33%), e que a escolha do observável é crucial, com a soma das expectativas de Pauli-Z (Z_sum) atingindo uma acurácia de 86.67%, superando significativamente outras medidas. Investigamos a paisagem de treinamento e verificamos que as arquiteturas propostas evitam o fenômeno dos barren plateaus, com uma variância de gradiente de 2.39e-03. Adicionalmente, uma análise de sensibilidade ao ruído revelou um efeito contraintuitivo, onde o ruído de despolarização apresentou uma correlação positiva com a acurácia (r = 0.430), sugerindo um possível papel de regularização. Concluímos que uma co-otimização cuidadosa da arquitetura do circuito e da estratégia de medição é fundamental para o desenvolvimento de classificadores quânticos robustos e eficazes.
 
 Palavras-chave: Aprendizado de Máquina Quântico, Circuitos Quânticos Variacionais, Classificação Quântica, Barren Plateaus, TensorFlow Quantum, Ruído Quântico.
@@ -176,7 +176,7 @@ Palavras-chave: Aprendizado de Máquina Quântico, Circuitos Quânticos Variacio
 
 
 
-1. Introdução
+## 1. Introdução
 
 O campo da computação quântica tem testemunhado um avanço notável, prometendo transformar radicalmente diversas áreas da ciência e tecnologia, incluindo o aprendizado de máquina [1]. O Aprendizado de Máquina Quântico (QML) surge como uma disciplina interdisciplinar que busca explorar os princípios da mecânica quântica, como superposição e entrelaçamento, para desenvolver algoritmos com potencial de superar seus análogos clássicos em tarefas específicas [2]. Dentre as abordagens mais promissoras para a era de computadores quânticos de escala intermediária e ruidosos (NISQ), destacam-se os algoritmos quânticos variacionais, ou híbridos quântico-clássicos [3].
 
@@ -190,7 +190,7 @@ Neste contexto, este trabalho apresenta uma investigação sistemática dos fato
 
 Ao abordar essas questões, este artigo visa fornecer insights práticos para o design de VQCs mais eficazes e robustos. Nossos resultados demonstram que a arquitetura do circuito e a estratégia de medição são elementos de design críticos que devem ser co-otimizados. Surpreendentemente, nossos achados também sugerem que, em certos regimes, o ruído pode ter um papel contraintuitivo, potencialmente atuando como uma forma de regularização. A estrutura deste artigo é a seguinte: a Seção 2 detalha a metodologia empregada, incluindo a preparação dos dados, a descrição das arquiteturas de VQC e dos observáveis, e o protocolo de treinamento e análise de ruído. A Seção 3 apresenta e discute os resultados obtidos, contextualizando-os com a literatura relevante. Finalmente, a Seção 4 conclui o trabalho, sintetizando os principais achados e delineando direções para pesquisas futuras.
 
-2. Metodologia
+## 2. Metodologia
 
 A metodologia deste estudo foi desenhada para permitir uma análise sistemática e reprodutível dos fatores que influenciam a performance de um classificador quântico híbrido. Todas as implementações foram realizadas utilizando as bibliotecas Cirq e TensorFlow Quantum (TFQ) [5], que facilitam a prototipagem e o treinamento de modelos híbridos quântico-clássicos.
 
@@ -204,14 +204,11 @@ A codificação dos dados clássicos em estados quânticos foi realizada atravé
 
 Para investigar o impacto da topologia do circuito, três arquiteturas de ansatz distintas foram implementadas e comparadas:
 
-1.
-Linear (Original): Nesta arquitetura, os qubits são dispostos em uma cadeia linear, e as portas de entrelaçamento (CNOTs) são aplicadas entre qubits adjacentes (i, i+1). Uma porta CNOT adicional é aplicada entre o último e o primeiro qubit, formando um ciclo. O custo de CNOTs por camada é de aproximadamente n, onde n é o número de qubits.
+1. Linear (Original): Nesta arquitetura, os qubits são dispostos em uma cadeia linear, e as portas de entrelaçamento (CNOTs) são aplicadas entre qubits adjacentes (i, i+1). Uma porta CNOT adicional é aplicada entre o último e o primeiro qubit, formando um ciclo. O custo de CNOTs por camada é de aproximadamente n, onde n é o número de qubits.
 
-2.
-Alternating: Esta arquitetura visa reduzir o custo de entrelaçamento e a localidade. Em cada camada, as portas CNOT são aplicadas em pares disjuntos de qubits (e.g., (0,1), (2,3), ...), alternando os pares em camadas subsequentes. O custo de CNOTs por camada é de aproximadamente n/2.
+2. Alternating: Esta arquitetura visa reduzir o custo de entrelaçamento e a localidade. Em cada camada, as portas CNOT são aplicadas em pares disjuntos de qubits (e.g., (0,1), (2,3), ...), alternando os pares em camadas subsequentes. O custo de CNOTs por camada é de aproximadamente n/2.
 
-3.
-Ring: Similar à arquitetura Linear, os qubits são arranjados em um anel, garantindo uma conectividade cíclica. Esta topologia também possui um custo de CNOTs de n por camada, mas com uma estrutura de entrelaçamento global que pode facilitar a propagação de informação através do circuito.
+3. Ring: Similar à arquitetura Linear, os qubits são arranjados em um anel, garantindo uma conectividade cíclica. Esta topologia também possui um custo de CNOTs de n por camada, mas com uma estrutura de entrelaçamento global que pode facilitar a propagação de informação através do circuito.
 
 Para todas as arquiteturas, o número de camadas do ansatz foi tratado como um hiperparâmetro a ser otimizado durante o treinamento.
 
@@ -219,23 +216,17 @@ Para todas as arquiteturas, o número de camadas do ansatz foi tratado como um h
 
 Após a passagem do estado quântico pelo VQC, a extração da informação para a classificação é realizada através da medição da expectativa de um observável de Pauli. A escolha do observável é um passo crítico, e para avaliar seu impacto, investigamos um conjunto de cinco observáveis distintos:
 
-•
-Z_first: Medição do observável Pauli-Z apenas no primeiro qubit (⟨Z₀⟩).
+• Z_first: Medição do observável Pauli-Z apenas no primeiro qubit (⟨Z₀⟩).
 
-•
-Z_sum: Soma das expectativas do observável Pauli-Z em todos os qubits (Σᵢ⟨Zᵢ⟩).
+• Z_sum: Soma das expectativas do observável Pauli-Z em todos os qubits (Σᵢ⟨Zᵢ⟩).
 
-•
-X_first: Medição do observável Pauli-X no primeiro qubit (⟨X₀⟩).
+• X_first: Medição do observável Pauli-X no primeiro qubit (⟨X₀⟩).
 
-•
-Y_first: Medição do observável Pauli-Y no primeiro qubit (⟨Y₀⟩).
+• Y_first: Medição do observável Pauli-Y no primeiro qubit (⟨Y₀⟩).
 
-•
-ZZ_correlation: Medição da correlação de Pauli-ZZ entre o primeiro e o último qubit (⟨Z₀Zₙ₋₁⟩).
+• ZZ_correlation: Medição da correlação de Pauli-ZZ entre o primeiro e o último qubit (⟨Z₀Zₙ₋₁⟩).
 
-•
-XX_correlation: Medição da correlação de Pauli-XX entre o primeiro e o último qubit (⟨X₀Xₙ₋₁⟩).
+• XX_correlation: Medição da correlação de Pauli-XX entre o primeiro e o último qubit (⟨X₀Xₙ₋₁⟩).
 
 A expectativa medida de cada observável é então passada para uma camada densa clássica com uma função de ativação sigmoide, que produz a probabilidade final de classificação.
 
@@ -243,11 +234,9 @@ A expectativa medida de cada observável é então passada para uma camada densa
 
 O processo de treinamento segue um paradigma híbrido. A função de custo utilizada foi a entropia cruzada binária, e a otimização dos parâmetros do VQC e da camada clássica foi realizada utilizando o otimizador Adam. O processo de otimização foi dividido em duas etapas principais:
 
-1.
-Otimização de Parâmetros Quânticos: Para cada arquitetura, foi realizada uma otimização inicial dos parâmetros do circuito utilizando algoritmos como COBYLA, que são eficazes para otimização sem gradiente.
+1. Otimização de Parâmetros Quânticos: Para cada arquitetura, foi realizada uma otimização inicial dos parâmetros do circuito utilizando algoritmos como COBYLA, que são eficazes para otimização sem gradiente.
 
-2.
-Otimização de Hiperparâmetros: Uma busca por Otimização Bayesiana foi empregada para encontrar a melhor combinação de hiperparâmetros, incluindo a taxa de aprendizado (learning rate), o número de unidades na camada densa (hidden units), a taxa de dropout e o número de camadas do VQC. Esta abordagem é mais eficiente do que uma busca em grade (grid search) para explorar o espaço de hiperparâmetros [12].
+2. Otimização de Hiperparâmetros: Uma busca por Otimização Bayesiana foi empregada para encontrar a melhor combinação de hiperparâmetros, incluindo a taxa de aprendizado (learning rate), o número de unidades na camada densa (hidden units), a taxa de dropout e o número de camadas do VQC. Esta abordagem é mais eficiente do que uma busca em grade (grid search) para explorar o espaço de hiperparâmetros [12].
 
 2.5. Análise de Treinabilidade e Ruído
 
@@ -255,17 +244,13 @@ Para avaliar a treinabilidade dos modelos, a variância dos gradientes da funç�
 
 Adicionalmente, para testar a robustez dos classificadores, foi realizada uma análise de sensibilidade ao ruído. Modelos de ruído foram introduzidos nos circuitos quânticos simulados para emular as condições de um hardware real. Os seguintes canais de ruído foram investigados:
 
-•
-Bit Flip: Simula um erro que inverte o estado de um qubit (equivalente a uma porta X).
+• Bit Flip: Simula um erro que inverte o estado de um qubit (equivalente a uma porta X).
 
-•
-Phase Flip: Simula um erro que inverte a fase de um qubit (equivalente a uma porta Z).
+• Phase Flip: Simula um erro que inverte a fase de um qubit (equivalente a uma porta Z).
 
-•
-Amplitude Damping: Modela a perda de energia de um qubit para o ambiente.
+• Amplitude Damping: Modela a perda de energia de um qubit para o ambiente.
 
-•
-Depolarizing Channel: Um modelo de ruído geral que aplica uma das três portas de Pauli (X, Y, Z) com uma certa probabilidade.
+• Depolarizing Channel: Um modelo de ruído geral que aplica uma das três portas de Pauli (X, Y, Z) com uma certa probabilidade.
 
 A performance do classificador (acurácia) foi avaliada em diferentes níveis de intensidade de ruído para cada um desses canais, e a correlação entre a intensidade do ruído e a acurácia foi calculada.
 
