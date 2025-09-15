@@ -1,0 +1,11 @@
+Título: ROC Curve (PNG)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_163832\figures\roc_curve_20250914_164517.png
+Timestamp: 14/09/2025-16:45:17
+Interpretação:
+Curva ROC/AUC. AUC=0.484.
+
+Cálculos e Fórmulas:
+TPR = TP/(TP+FN), FPR = FP/(FP+TN)
+AUC = ∫ TPR(FPR) dFPR (regra do trapézio)
+Funções: sklearn.metrics.roc_curve, sklearn.metrics.roc_auc_score
+IC(AUC) por bootstrap: quantis empíricos sobre amostragens com reposição (B=1000)

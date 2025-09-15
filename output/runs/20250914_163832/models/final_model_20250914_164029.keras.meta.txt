@@ -1,0 +1,9 @@
+Título: Final Model (.keras)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_163832\models\final_model_20250914_164029.keras
+Timestamp: 14/09/2025-16:40:29
+Interpretação:
+Modelo final salvo (estrutura+pesos).
+
+Cálculos e Fórmulas:
+Perda binária: L = - [ y log p + (1-y) log(1-p) ]
+Otimizador Adam; backprop clássico sobre features quânticas

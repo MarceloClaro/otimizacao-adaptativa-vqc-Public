@@ -1,0 +1,8 @@
+Título: Iris Split - X_train
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\data\X_train_20250914_121439.csv
+Timestamp: 14/09/2025-12:14:39
+Interpretação:
+(n/d)
+
+Cálculos e Fórmulas:
+(n/d)

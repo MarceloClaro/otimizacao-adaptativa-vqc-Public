@@ -1,0 +1,9 @@
+Título: Estados Quânticos - Circuito Linear Original (SVG)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\bloch_spheres\linear_circuit_qubit_1_20250914_121441.svg
+Timestamp: 14/09/2025-12:14:42
+Interpretação:
+Amostra #23, Qubit 1. Vetor de Bloch aproximado (x,y,z)=(0.245,0.188,-0.160).
+
+Cálculos e Fórmulas:
+Componentes: x=Tr(ρ σ_x), y=Tr(ρ σ_y), z=Tr(ρ σ_z)
+Funções: qutip.Bloch, composição de ρ reduzida

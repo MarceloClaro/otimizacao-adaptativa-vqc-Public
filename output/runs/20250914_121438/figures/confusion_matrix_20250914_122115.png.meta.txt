@@ -1,0 +1,9 @@
+Título: Confusion Matrix (PNG)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\figures\confusion_matrix_20250914_122115.png
+Timestamp: 14/09/2025-12:21:15
+Interpretação:
+Matriz de confusão com contagens por classe.
+
+Cálculos e Fórmulas:
+Matriz de Confusão: C_{ij} = |{x: y=x_i, \hat{y}=x_j}|
+Função: sklearn.metrics.confusion_matrix

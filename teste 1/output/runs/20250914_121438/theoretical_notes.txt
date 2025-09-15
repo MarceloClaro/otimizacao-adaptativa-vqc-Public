@@ -1,0 +1,20 @@
+Notas Teóricas
+================
+
+Fórmulas de Expectativa:
+  - ⟨Z_k⟩ = ∑_x (-1)^{x_k} |ψ_x|^2
+  - ⟨X_k⟩ = ∑_x ψ_x* ψ_{x⊕(1<<k)}
+  - ⟨Y_k⟩ = ∑_x i(-1)^{x_k} ψ_x* ψ_{x⊕(1<<k)}
+  - ⟨Z_k Z_l⟩ = ∑_x (-1)^{x_k ⊕ x_l} |ψ_x|^2
+  - ⟨X_k X_l⟩ = ∑_x ψ_x* ψ_{x⊕(1<<k)⊕(1<<l)}
+
+Custo de CNOT por Camada (n = 4):
+  - Linear (Original): 4 CNOTs/camada
+  - Alternating: 2 CNOTs/camada
+  - Ring: 4 CNOTs/camada
+
+Dicas de Parametrização e Mitigação:
+  - Normalização: x_i em [0,1]; escolha s_i ≲ 2π para evitar aliasing angular.
+  - Inicialização: ϑ_j ~ U(0, 2π) com camadas rasas para evitar planícies.
+  - Mitigação de barren plateaus: ansätze locais, funções de custo locais, inicializações informadas (McClean 2018; Cerezo 2021).
+  - Conectividade: anel cobre grafo completo linear; alternância cobre adjacentes em 2 camadas.

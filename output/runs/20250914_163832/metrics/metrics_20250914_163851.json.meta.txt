@@ -1,0 +1,9 @@
+Título: Test Metrics
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_163832\metrics\metrics_20250914_163851.json
+Timestamp: 14/09/2025-16:38:51
+Interpretação:
+Métricas finais do experimento.
+
+Cálculos e Fórmulas:
+Acurácia: acc = (1/N) * \sum_i 1[y_i = \hat{y}_i]
+Função: sklearn.metrics.accuracy_score ou média booleana (numpy)

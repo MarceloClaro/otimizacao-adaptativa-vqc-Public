@@ -1,0 +1,9 @@
+Título: Classification Report (TXT)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\metrics\classification_report_20250914_122115.txt
+Timestamp: 14/09/2025-12:21:15
+Interpretação:
+Relatório de classificação com métricas por classe.
+
+Cálculos e Fórmulas:
+Acurácia: acc = (1/N) * \sum_i 1[y_i = \hat{y}_i]
+Função: sklearn.metrics.accuracy_score ou média booleana (numpy)

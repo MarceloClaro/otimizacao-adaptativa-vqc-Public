@@ -1,0 +1,9 @@
+{
+  "best_hyperparameters": {
+    "learning_rate": 0.040586236199810305,
+    "hidden_units": 10,
+    "dropout_rate": 0.4895022075365838,
+    "num_layers": 3
+  },
+  "best_score": 0.4453563988208771
+}

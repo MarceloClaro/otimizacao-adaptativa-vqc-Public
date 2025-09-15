@@ -1,0 +1,7 @@
+Interpretação Automática do Treinamento: Modelo Principal
+
+Épocas executadas: 78
+Melhor época (menor val_loss): 68 | val_loss=0.4881
+Evolução da acurácia: treino Δ=+0.229, validação Δ=+0.167
+Gap final de perda (val - train): +0.0655
+Pico de acurácia de validação: 0.7000

@@ -1,0 +1,8 @@
+Título: Best Hyperparameters (JSON)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_163832\best_hyperparameters_20250914_164116.json
+Timestamp: 14/09/2025-16:41:16
+Interpretação:
+Hiperparâmetros selecionados com melhor desempenho (validação).
+
+Cálculos e Fórmulas:
+(n/d)

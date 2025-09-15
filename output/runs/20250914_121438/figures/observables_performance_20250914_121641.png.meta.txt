@@ -1,0 +1,8 @@
+Título: Observables Performance (PNG)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\figures\observables_performance_20250914_121641.png
+Timestamp: 14/09/2025-12:16:42
+Interpretação:
+Impacto dos observáveis na acurácia.
+
+Cálculos e Fórmulas:
+Medições: ⟨O⟩ = Tr(ρ O); escolha de O altera informação extraída

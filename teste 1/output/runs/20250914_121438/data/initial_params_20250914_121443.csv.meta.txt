@@ -1,0 +1,8 @@
+Título: Initial Parameters
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\data\initial_params_20250914_121443.csv
+Timestamp: 14/09/2025-12:14:43
+Interpretação:
+(n/d)
+
+Cálculos e Fórmulas:
+(n/d)

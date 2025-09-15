@@ -1,0 +1,9 @@
+Título: Training History (JSON)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\metrics\training_history_20250914_121457.json
+Timestamp: 14/09/2025-12:14:57
+Interpretação:
+Histórico de treinamento (loss/métricas por época) para analisar convergência e overfitting.
+
+Cálculos e Fórmulas:
+Perda binária: L = - [ y log p + (1-y) log(1-p) ]
+Otimizador Adam; backprop clássico sobre features quânticas

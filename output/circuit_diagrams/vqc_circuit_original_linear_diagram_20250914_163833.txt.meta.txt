@@ -1,0 +1,8 @@
+Título: Circuito VQC Original (Linear) (Diagrama Texto)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\circuit_diagrams\vqc_circuit_original_linear_diagram_20250914_163833.txt
+Timestamp: 14/09/2025-16:38:33
+Interpretação:
+Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+
+Cálculos e Fórmulas:
+(n/d)

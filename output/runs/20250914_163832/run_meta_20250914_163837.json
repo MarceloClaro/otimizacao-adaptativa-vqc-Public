@@ -1,0 +1,6 @@
+{
+  "num_qubits": 4,
+  "num_layers": 2,
+  "feature_map_scale_set": "qinfo",
+  "run_id": "20250914_163832"
+}

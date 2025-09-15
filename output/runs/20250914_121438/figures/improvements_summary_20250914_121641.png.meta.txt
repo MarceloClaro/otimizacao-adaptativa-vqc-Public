@@ -1,0 +1,8 @@
+Título: Improvements Summary (PNG)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\figures\improvements_summary_20250914_121641.png
+Timestamp: 14/09/2025-12:16:41
+Interpretação:
+Resumo das melhorias e seus ganhos agregados em acurácia/robustez.
+
+Cálculos e Fórmulas:
+(n/d)

@@ -1,0 +1,8 @@
+Título: Run Metadata
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_163832\run_meta_20250914_163837.json
+Timestamp: 14/09/2025-16:38:37
+Interpretação:
+(n/d)
+
+Cálculos e Fórmulas:
+(n/d)

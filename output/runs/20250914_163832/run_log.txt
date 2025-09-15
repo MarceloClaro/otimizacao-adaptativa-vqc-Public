@@ -1,0 +1,159 @@
+[ARTIFACT] Environment Snapshot (JSON) | 14/09/2025-16:38:33 | output\runs\20250914_163832\env_snapshot_20250914_163832.json
+  -> (n/d)
+[ARTIFACT] Environment Snapshot (TXT) | 14/09/2025-16:38:33 | output\runs\20250914_163832\env_snapshot_20250914_163832.txt
+  -> (n/d)
+===== RUN HEADER | 14/09/2025-16:38:33 =====
+Seed: 42
+Python: 3.13.3
+TensorFlow: 2.20.0
+TensorFlow Quantum: n/d
+Cirq: 1.6.1
+NumPy: 2.3.1
+Determinism Flags: PYTHONHASHSEED=42, TF_DETERMINISTIC_OPS=1, TF_CUDNN_DETERMINISTIC=1
+Bibliotecas importadas com sucesso!
+Versão do TensorFlow: 2.20.0
+Versão do Cirq: 1.6.1
+NOTA: TensorFlow Quantum não está disponível para Python 3.13
+Usando abordagem híbrida: Cirq para simulação quântica + TensorFlow para ML clássico
+Dados de treinamento: (70, 4) amostras, (70,) rótulos
+Dados de teste: (30, 4) amostras, (30,) rótulos
+Splits do Iris salvos em output\runs\20250914_163832\data
+[ARTIFACT] Iris Split - X_train | 14/09/2025-16:38:33 | output\runs\20250914_163832\data\X_train_20250914_163833.csv
+  -> (n/d)
+[ARTIFACT] Iris Split - X_test | 14/09/2025-16:38:33 | output\runs\20250914_163832\data\X_test_20250914_163833.csv
+  -> (n/d)
+[ARTIFACT] Iris Split - y_train | 14/09/2025-16:38:33 | output\runs\20250914_163832\data\y_train_20250914_163833.csv
+  -> (n/d)
+[ARTIFACT] Iris Split - y_test | 14/09/2025-16:38:33 | output\runs\20250914_163832\data\y_test_20250914_163833.csv
+  -> (n/d)
+Circuito VQC e observável definidos.
+[ARTIFACT] Circuito VQC Original (Linear) (TXT Completo) | 14/09/2025-16:38:33 | output\circuit_diagrams\vqc_circuit_original_linear_full_20250914_163833.txt
+  -> (n/d)
+[ARTIFACT] Circuito VQC Original (Linear) (Diagrama Texto) | 14/09/2025-16:38:33 | output\circuit_diagrams\vqc_circuit_original_linear_diagram_20250914_163833.txt
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+
+Circuito VQC Original (Linear)
+--------------------------------------------------
+0: ───Rx(6.28318530717959*x_0)────Ry(theta_0)───@───────────X───Rx(6.28318530717959*x_0)────Ry(theta_4)───@───────────X───
+                                                │           │                                             │           │
+1: ───Rx(2.22144146907918*x_1)────Ry(theta_1)───X───@───────┼───Rx(2.22144146907918*x_1)────Ry(theta_5)───X───@───────┼───
+                                                    │       │                                                 │       │
+2: ───Rx(1.81379936423422*x_2)────Ry(theta_2)───────X───@───┼───Rx(1.81379936423422*x_2)────Ry(theta_6)───────X───@───┼───
+                                                        │   │                                                     │   │
+3: ───Rx(0.693147180559945*x_3)───Ry(theta_3)───────────X───@───Rx(0.693147180559945*x_3)───Ry(theta_7)───────────X───@───
+[ARTIFACT] Circuito VQC Original (Linear) (PNG) | 14/09/2025-16:38:33 | output\circuit_diagrams\vqc_circuit_original_linear_diagram_20250914_163833.png
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Circuito VQC Original (Linear) (SVG) | 14/09/2025-16:38:33 | output\circuit_diagrams\vqc_circuit_original_linear_diagram_20250914_163833.svg
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Arquitetura: Linear (Original) (TXT Completo) | 14/09/2025-16:38:33 | output/circuit_diagrams\linear_original_full_20250914_163833.txt
+  -> (n/d)
+[ARTIFACT] Arquitetura: Linear (Original) (Diagrama Texto) | 14/09/2025-16:38:33 | output/circuit_diagrams\linear_original_diagram_20250914_163833.txt
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+
+Arquitetura: Linear (Original)
+--------------------------------------------------
+0: ───Rx(6.28318530717959*x_0)────Ry(theta_0)───@───────────X───Rx(6.28318530717959*x_0)────Ry(theta_4)───@───────────X───
+                                                │           │                                             │           │
+1: ───Rx(2.22144146907918*x_1)────Ry(theta_1)───X───@───────┼───Rx(2.22144146907918*x_1)────Ry(theta_5)───X───@───────┼───
+                                                    │       │                                                 │       │
+2: ───Rx(1.81379936423422*x_2)────Ry(theta_2)───────X───@───┼───Rx(1.81379936423422*x_2)────Ry(theta_6)───────X───@───┼───
+                                                        │   │                                                     │   │
+3: ───Rx(0.693147180559945*x_3)───Ry(theta_3)───────────X───@───Rx(0.693147180559945*x_3)───Ry(theta_7)───────────X───@───
+[ARTIFACT] Arquitetura: Linear (Original) (PNG) | 14/09/2025-16:38:34 | output/circuit_diagrams\linear_original_diagram_20250914_163833.png
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Arquitetura: Linear (Original) (SVG) | 14/09/2025-16:38:34 | output/circuit_diagrams\linear_original_diagram_20250914_163833.svg
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Arquitetura: Alternating (TXT Completo) | 14/09/2025-16:38:34 | output/circuit_diagrams\alternating_full_20250914_163834.txt
+  -> (n/d)
+[ARTIFACT] Arquitetura: Alternating (Diagrama Texto) | 14/09/2025-16:38:34 | output/circuit_diagrams\alternating_diagram_20250914_163834.txt
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+
+Arquitetura: Alternating
+--------------------------------------------------
+0: ───Rx(6.28318530717959*x_0)────Ry(theta_0)───@───Rx(6.28318530717959*x_0)────Ry(theta_4)───@───
+                                                │                                             │
+1: ───Rx(2.22144146907918*x_1)────Ry(theta_1)───X───Rx(2.22144146907918*x_1)────Ry(theta_5)───X───
+
+2: ───Rx(1.81379936423422*x_2)────Ry(theta_2)───@───Rx(1.81379936423422*x_2)────Ry(theta_6)───@───
+                                                │                                             │
+3: ───Rx(0.693147180559945*x_3)───Ry(theta_3)───X───Rx(0.693147180559945*x_3)───Ry(theta_7)───X───
+[ARTIFACT] Arquitetura: Alternating (PNG) | 14/09/2025-16:38:34 | output/circuit_diagrams\alternating_diagram_20250914_163834.png
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Arquitetura: Alternating (SVG) | 14/09/2025-16:38:34 | output/circuit_diagrams\alternating_diagram_20250914_163834.svg
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Arquitetura: Ring (TXT Completo) | 14/09/2025-16:38:34 | output/circuit_diagrams\ring_full_20250914_163834.txt
+  -> (n/d)
+[ARTIFACT] Arquitetura: Ring (Diagrama Texto) | 14/09/2025-16:38:34 | output/circuit_diagrams\ring_diagram_20250914_163834.txt
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+
+Arquitetura: Ring
+--------------------------------------------------
+0: ───Rx(6.28318530717959*x_0)────Ry(theta_0)───@───────────X───Rx(6.28318530717959*x_0)────Ry(theta_4)───@───────────X───
+                                                │           │                                             │           │
+1: ───Rx(2.22144146907918*x_1)────Ry(theta_1)───X───@───────┼───Rx(2.22144146907918*x_1)────Ry(theta_5)───X───@───────┼───
+                                                    │       │                                                 │       │
+2: ───Rx(1.81379936423422*x_2)────Ry(theta_2)───────X───@───┼───Rx(1.81379936423422*x_2)────Ry(theta_6)───────X───@───┼───
+                                                        │   │                                                     │   │
+3: ───Rx(0.693147180559945*x_3)───Ry(theta_3)───────────X───@───Rx(0.693147180559945*x_3)───Ry(theta_7)───────────X───@───
+[ARTIFACT] Arquitetura: Ring (PNG) | 14/09/2025-16:38:34 | output/circuit_diagrams\ring_diagram_20250914_163834.png
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Arquitetura: Ring (SVG) | 14/09/2025-16:38:34 | output/circuit_diagrams\ring_diagram_20250914_163834.svg
+  -> Diagrama textual/visual do circuito quântico para auditoria e reprodutibilidade.
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (PNG) | 14/09/2025-16:38:35 | output\bloch_spheres\linear_circuit_qubit_0_20250914_163835.png
+  -> Amostra #23, Qubit 0. Vetor de Bloch aproximado (x,y,z)=(-0.090,0.496,-0.003).
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (SVG) | 14/09/2025-16:38:35 | output\bloch_spheres\linear_circuit_qubit_0_20250914_163835.svg
+  -> Amostra #23, Qubit 0. Vetor de Bloch aproximado (x,y,z)=(-0.090,0.496,-0.003).
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (PNG) | 14/09/2025-16:38:35 | output\bloch_spheres\linear_circuit_qubit_1_20250914_163835.png
+  -> Amostra #23, Qubit 1. Vetor de Bloch aproximado (x,y,z)=(0.245,0.188,-0.160).
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (SVG) | 14/09/2025-16:38:35 | output\bloch_spheres\linear_circuit_qubit_1_20250914_163835.svg
+  -> Amostra #23, Qubit 1. Vetor de Bloch aproximado (x,y,z)=(0.245,0.188,-0.160).
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (PNG) | 14/09/2025-16:38:36 | output\bloch_spheres\linear_circuit_qubit_2_20250914_163836.png
+  -> Amostra #23, Qubit 2. Vetor de Bloch aproximado (x,y,z)=(-0.188,-0.031,-0.141).
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (SVG) | 14/09/2025-16:38:36 | output\bloch_spheres\linear_circuit_qubit_2_20250914_163836.svg
+  -> Amostra #23, Qubit 2. Vetor de Bloch aproximado (x,y,z)=(-0.188,-0.031,-0.141).
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (PNG) | 14/09/2025-16:38:36 | output\bloch_spheres\linear_circuit_qubit_3_20250914_163836.png
+  -> Amostra #23, Qubit 3. Vetor de Bloch aproximado (x,y,z)=(0.277,-0.122,0.387).
+[ARTIFACT] Estados Quânticos - Circuito Linear Original (SVG) | 14/09/2025-16:38:36 | output\bloch_spheres\linear_circuit_qubit_3_20250914_163836.svg
+  -> Amostra #23, Qubit 3. Vetor de Bloch aproximado (x,y,z)=(0.277,-0.122,0.387).
+[ARTIFACT] Quantum Features - Train | 14/09/2025-16:38:37 | output\runs\20250914_163832\data\X_train_quantum_20250914_163837.csv
+  -> (n/d)
+[ARTIFACT] Quantum Features - Test | 14/09/2025-16:38:37 | output\runs\20250914_163832\data\X_test_quantum_20250914_163837.csv
+  -> (n/d)
+[ARTIFACT] Initial Parameters | 14/09/2025-16:38:37 | output\runs\20250914_163832\data\initial_params_20250914_163837.csv
+  -> (n/d)
+[ARTIFACT] Run Metadata | 14/09/2025-16:38:37 | output\runs\20250914_163832\run_meta_20250914_163837.json
+  -> (n/d)
+[ARTIFACT] Training History (CSV) | 14/09/2025-16:38:50 | output\runs\20250914_163832\metrics\training_history_20250914_163850.csv
+  -> Histórico de treinamento (loss/métricas por época) para analisar convergência e overfitting.
+[ARTIFACT] Training History (JSON) | 14/09/2025-16:38:50 | output\runs\20250914_163832\metrics\training_history_20250914_163850.json
+  -> Histórico de treinamento (loss/métricas por época) para analisar convergência e overfitting.
+[ARTIFACT] Training Interpretation | 14/09/2025-16:38:50 | output\runs\20250914_163832\metrics\training_interpretation.txt
+  -> (n/d)
+[ARTIFACT] Test Metrics | 14/09/2025-16:38:51 | output\runs\20250914_163832\metrics\metrics_20250914_163851.json
+  -> Métricas finais do experimento.
+[ARTIFACT] Architecture Comparison (PNG) | 14/09/2025-16:39:00 | output\runs\20250914_163832\figures\architecture_comparison_20250914_163900.png
+  -> Comparação de arquiteturas por desempenho.
+[ARTIFACT] Final Model (.keras) | 14/09/2025-16:40:29 | output\runs\20250914_163832\models\final_model_20250914_164029.keras
+  -> Modelo final salvo (estrutura+pesos).
+[ARTIFACT] Improvements Summary (PNG) | 14/09/2025-16:40:37 | output\runs\20250914_163832\figures\improvements_summary_20250914_164036.png
+  -> Resumo das melhorias e seus ganhos agregados em acurácia/robustez.
+[ARTIFACT] Observables Performance (PNG) | 14/09/2025-16:40:37 | output\runs\20250914_163832\figures\observables_performance_20250914_164037.png
+  -> Impacto dos observáveis na acurácia.
+[ARTIFACT] Best Hyperparameters (JSON) | 14/09/2025-16:41:16 | output\runs\20250914_163832\best_hyperparameters_20250914_164116.json
+  -> Hiperparâmetros selecionados com melhor desempenho (validação).
+[ARTIFACT] Advanced Algorithms Summary (TXT) | 14/09/2025-16:45:16 | output\runs\20250914_163832\advanced_algorithms_summary_20250914_164516.txt
+  -> (n/d)
+[ARTIFACT] Advanced Algorithms Summary (TXT, root) | 14/09/2025-16:45:16 | C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\advanced_algorithms_summary.txt
+  -> (n/d)
+[ARTIFACT] Confusion Matrix (CSV) | 14/09/2025-16:45:17 | output\runs\20250914_163832\metrics\confusion_matrix_20250914_164517.csv
+  -> Matriz de confusão com contagens por classe.
+[ARTIFACT] Confusion Matrix (PNG) | 14/09/2025-16:45:17 | output\runs\20250914_163832\figures\confusion_matrix_20250914_164517.png
+  -> Matriz de confusão com contagens por classe.
+[ARTIFACT] ROC Points (CSV) | 14/09/2025-16:45:17 | output\runs\20250914_163832\metrics\roc_points_20250914_164517.csv
+  -> Curva ROC/AUC. AUC=0.484.
+[ARTIFACT] ROC AUC (JSON) | 14/09/2025-16:45:17 | output\runs\20250914_163832\metrics\roc_auc_20250914_164517.json
+  -> Curva ROC/AUC. AUC=0.484.
+[ARTIFACT] ROC Curve (PNG) | 14/09/2025-16:45:17 | output\runs\20250914_163832\figures\roc_curve_20250914_164517.png
+  -> Curva ROC/AUC. AUC=0.484.
+[ARTIFACT] Classification Report (TXT) | 14/09/2025-16:45:17 | output\runs\20250914_163832\metrics\classification_report_20250914_164517.txt
+  -> Relatório de classificação com métricas por classe.

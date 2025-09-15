@@ -1,0 +1,5 @@
+scale_set,layers,topk,val_acc,test_acc,lr,units,dropout,layers_cls
+quantum,3,Z_first|XX_correlation|X_first,0.8999999761581421,0.8500000238418579,0.005,16,0.1,2
+qinfo,2,Y_first|ZZ_correlation|X_first,0.949999988079071,0.800000011920929,0.005,16,0.1,1
+quantum_strict,4,Z_first|Y_first|X_first,1.0,0.6000000238418579,0.005,16,0.1,2
+math,2,ZZ_correlation|Z_first|XX_correlation,1.0,0.8999999761581421,0.005,16,0.1,1

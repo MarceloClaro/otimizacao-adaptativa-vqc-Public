@@ -1,0 +1,9 @@
+seed,scale_set,layers,topk,val_acc,test_acc
+11,quantum,3,X_first|Y_first|XX_correlation,0.8500000238418579,1.0
+22,quantum,4,XX_correlation|ZZ_correlation|X_first,1.0,0.800000011920929
+33,quantum,2,ZZ_correlation|X_first|Z_first,1.0,0.8999999761581421
+44,quantum,3,XX_correlation|ZZ_correlation|Z_first,0.949999988079071,0.949999988079071
+55,quantum,4,XX_correlation|Y_first|Z_first,1.0,0.8999999761581421
+
+val_mean,val_std,test_mean,test_std
+0.9600000023841858,0.05830951036187926,0.9099999904632569,0.06633249185338448

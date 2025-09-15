@@ -1,0 +1,232 @@
+Metodologia e Método Aplicado: Classificador Quântico Híbrido (Cirq + TensorFlow Quantum) para Classificação Binária do Iris
+=============================================================================================
+
+1. Objetivo e Escopo
+--------------------
+Este trabalho descreve, em padrão técnico-científico, a metodologia de construção, treinamento, validação e auditoria de um classificador quântico híbrido para a tarefa de classificação binária do conjunto de dados Iris (Setosa vs. Versicolor). O pipeline integra computação quântica variacional (Cirq) à aprendizagem profunda clássica (TensorFlow + TensorFlow Quantum, TFQ), explorando ansätze parametrizados eficientes e estratégias de mitigação de barren plateaus, com ênfase em reprodutibilidade e rastreabilidade completa dos artefatos.
+
+2. Fundamentação Teórica
+------------------------
+2.1. Aprendizado Variacional Quântico (VQA)
+- Modelos VQA otimizam parâmetros de circuitos quânticos (ângulos de portas rotacionais) com base em funções de custo diferenciáveis, avaliadas sobre expectativas de observáveis em estados preparados por ansätze parametrizados.
+- A eficiência advém de (i) natureza distribuída/exponencial do espaço de Hilbert e (ii) estrutura local de ansätze que balanceiam expressividade e treinabilidade.
+
+2.2. Observáveis e Expectativas
+- Medidas em bases de Pauli {X, Y, Z} e produtos tensoriais (e.g., Z_k, X_k, Z_k Z_l) são mapeadas a expectativas ⟨P⟩, calculadas por amostragem (simulador) ou execução em hardware.
+- Exemplos úteis (como exposto no código):
+  • ⟨Z_k⟩ = Σ_x (-1)^{x_k} |ψ_x|²
+  • ⟨X_k⟩ = Σ_x ψ_x* ψ_{x⊕(1<<k)}
+  • ⟨Z_k Z_l⟩ = Σ_x (-1)^{x_k ⊕ x_l} |ψ_x|²
+- Essas expectativas alimentam camadas densas clássicas (quando presentes) e a função de perda supervisionada.
+
+2.3. Barren Plateaus e Treinabilidade
+- Fenômeno pelo qual gradientes tendem a zero com a profundidade ou dimensão do sistema, dificultando a otimização (McClean et al., 2018; Cerezo et al., 2021).
+- Mitigações implementadas/consideradas:
+  • Ansätze locais com conectividade limitada por camada (Alternating, Ring).
+  • Inicialização informada em distribuições uniformes limitadas U(0, 2π).
+  • Funções de custo locais e normalização da entrada para evitar aliasing angular.
+
+3. Dados, Pré-processamento e Codificação Quântica
+--------------------------------------------------
+3.1. Conjunto de Dados
+- Iris (Setosa vs. Versicolor), extraído do pacote padrão (ou arquivo local), com rotulagem binária y ∈ {0,1}.
+- Divisão estratificada em treino/validação/teste, conforme estabelecido no código, preservando distribuição de classes.
+
+3.2. Normalização e Escalonamento
+- Atributos são normalizados para [0,1] e, quando aplicável, reescalonados a ângulos via s_i ∈ [0, 2π], evitando aliasing na codificação rotacional.
+
+3.3. Estratégias de Codificação
+- Codificação por rotações monoqubit (e.g., RZ, RX, RY), em que cada feature afeta um ou mais qubits.
+- Opções de entrelaçamento (CNOT) definem a topologia de correlações qubit-qubit a cada camada.
+
+4. Arquiteturas de Circuito (Ansätze)
+-------------------------------------
+O código implementa e/ou compara três topologias por camada:
+- Linear (Original):
+  • Cadeia linear com envolvimento (wrap) para formar um ciclo. Custo aproximado de CNOT por camada: ~n.
+  • Vantagem: maior conectividade em uma única camada.
+  • Risco: gradientes mais rasos em camadas profundas devido ao maior acoplamento global.
+
+- Alternating:
+  • Pareamento disjunto (e.g., (0,1), (2,3), …) alternado a cada camada, reduzindo custo de CNOT para ~n/2 por camada.
+  • Vantagem: menor custo e maior localidade; mitigação parcial de barren plateaus.
+  • Limitação: correlações de longo alcance exigem mais camadas.
+
+- Ring:
+  • Topologia em anel com n CNOTs por camada.
+  • Vantagem: regularidade e simetria; boa propagação de correlações vizinhas.
+  • Limitação: custo de CNOT similar ao Linear, podendo afetar treinabilidade em profundidades elevadas.
+
+5. Modelo Híbrido (Cirq + TFQ)
+-------------------------------
+- Construção do circuito parametrizado em Cirq, com camadas repetidas (L) que combinam rotações monoqubit e entrelaçamento segundo a topologia escolhida.
+- Camada de expectativa (tfq.layers.Expectation) aplica observáveis de Pauli ao estado de saída do circuito, resultando em features quânticas diferenciáveis.
+- Camadas clássicas opcionais (Dense/Dropout) processam expectativas, produzindo a logit/saída binária.
+- Função de custo: entropia cruzada binária ou equivalente, sobre as probabilidades derivadas da medida/saída final.
+- Otimizadores: variantes de Adam/SGD (ver busca em hpo_trials.csv), com taxa de aprendizado selecionada por HPO.
+
+6. Treinamento, Validação e Callbacks
+-------------------------------------
+- Rotina de treino com validação hold-out e callbacks:
+  • EarlyStopping para evitar overfitting.
+  • ModelCheckpoint para salvar melhores pesos (pasta: output/CKPT_* conforme configurado).
+  • CSVLogger/TensorBoard (quando habilitado) para trilhas reprodutíveis.
+- Artefatos visuais:
+  • Diagramas de circuito exportados em output/circuit_diagrams/.
+  • Esferas de Bloch e trajetórias de estados em output/bloch_spheres/.
+  • Notas teóricas automatizadas (theoretical_notes.txt/png) com fórmulas de ⟨P⟩ e custo de CNOT.
+
+7. Busca de Hiperparâmetros (HPO)
+----------------------------------
+- A busca registra tentativas em hpo_trials.csv contemplando: learning_rate, hidden_units, dropout_rate, num_layers.
+- Exemplo de resultados observados (arquivo hpo_trials.csv):
+  • Melhor val_loss registrada: 0.312871 (trial 9; learning_rate ≈ 0.0447; hidden_units = 12; dropout ≈ 0.121; num_layers = 2).
+  • Val_losses competitivas adicionais: 0.313030 (trial 12), 0.325989 (trial 10), indicando região hiperparamétrica estável.
+- Interpretação: num_layers moderado (1–3) tendeu a bom equilíbrio entre expressividade e treinabilidade.
+
+8. Métricas e Avaliação
+------------------------
+- Métrica primária: val_loss (entropia cruzada binária), reportada por época e por melhor checkpoint.
+- Métricas secundárias recomendadas (se habilitadas no código): acurácia, F1-score, AUC-ROC; curvas Precision-Recall.
+- Protocolos de validação propostos:
+  • Hold-out com estratificação e múltiplas sementes.
+  • k-fold estratificado (k ∈ {5,10}) para maior robustez estatística.
+
+9. Auditoria de Reprodutibilidade e Rastreabilidade
+---------------------------------------------------
+- Organização de saídas por execução em output/runs/YYYYMMDD_HHMMSS/ com referências cruzadas a diagramas, esferas de Bloch e checkpoints.
+- Anotação automática de artefatos (e.g., annotate_artifact) para facilitar submissão e revisão.
+- Metadados de cada execução incluem: arquitetura usada, número de qubits, número de camadas, hiperparâmetros selecionados, sementes aleatórias, métricas de validação e caminhos dos artefatos.
+
+10. Vantagens e Desvantagens da Abordagem
+-----------------------------------------
+Vantagens:
+- Representação expressiva: exploração de correlações não clássicas via entrelaçamento controlado (CNOT) e observáveis de Pauli.
+- Hibridização eficiente: TFQ integra gradientes automáticos, permitindo uso de otimizadores clássicos maduros sobre parâmetros quânticos.
+- Mitigação de barren plateaus: ansätze locais (Alternating) e profundidade moderada favorecem gradientes informativos.
+- Transparência: geração automática de diagramas de circuito e esferas de Bloch favorece interpretabilidade e auditoria.
+
+Desvantagens/Desafios:
+- Sensibilidade a hiperparâmetros: taxas de aprendizado, profundidade e conectividade impactam significativamente a treinabilidade.
+- Escalabilidade: simuladores clássicos impõem custo exponencial; execução em hardware real pode sofrer com ruído e decoerência.
+- Métricas dependentes de semente: variação estatística requer múltiplas repetições e ICs para conclusões robustas.
+
+11. Ameaças à Validade e Controles
+----------------------------------
+- Ameaças internas: fuga de informação se normalização/estratificação não for estritamente por partição; mitigado por pipelines separados de treino/validação/teste.
+- Ameaças externas: generalização restrita pelo dataset (pequeno); recomenda-se replicar em datasets maiores e multiclasses.
+- Confiabilidade: fixar sementes e registrar versões de dependências (TF, TFQ, Cirq) para reprodutibilidade.
+
+12. Infraestrutura Computacional
+--------------------------------
+- Execução em simulador Cirq (backend TFQ) em CPU/GPU.
+- Versões: recomenda-se empregar combinações TF/TFQ estáveis (como definido no notebook), dada a compatibilidade estrita do TFQ.
+- Tempo de execução e pegada de memória variam com número de qubits, camadas e tamanho do batch.
+
+13. Procedimentos Operacionais Reprodutíveis
+--------------------------------------------
+1) Preparar ambiente e instalar versões compatíveis de TF, TFQ e Cirq.
+2) Carregar e normalizar Iris; definir partições com estratificação e sementes fixas.
+3) Selecionar ansatz (Linear/Alternating/Ring) e profundidade L.
+4) Definir observáveis (e.g., {Z_k, Z_k Z_l}) e camada TFQ Expectation.
+5) Configurar camadas clássicas (opcionais), função de custo e otimizador.
+6) Habilitar callbacks (EarlyStopping, ModelCheckpoint) e logging.
+7) Realizar HPO (opcional) e registrar em hpo_trials.csv.
+8) Treinar, avaliar em validação, salvar melhores checkpoints e artefatos em output/.
+9) Testar no conjunto de teste e reportar métricas com ICs.
+
+14. Resultados Resumidos desta Implementação
+--------------------------------------------
+- Melhor desempenho observado nos ensaios de HPO (hpo_trials.csv):
+  • best_val_loss = 0.312871 (trial 9).
+  • Configuração aproximada: learning_rate ≈ 0.0447; hidden_units = 12; dropout ≈ 0.121; num_layers = 2.
+- Interpretação: profundidade moderada e conectividade local suficiente tendem a maximizar a treinabilidade, conciliando expressividade e estabilidade do gradiente.
+
+15. Considerações Éticas e de Uso Responsável
+---------------------------------------------
+- O fluxo não utiliza dados sensíveis nem atributos pessoais; ainda assim, recomenda-se seguir LGPD em casos gerais.
+- Em aplicações futuras, atentar para viés de amostragem, impacto social e transparência de modelos.
+
+16. Referências Essenciais
+--------------------------
+- McClean, J. R., et al. (2018). Barren plateaus in quantum neural network training landscapes.
+- Cerezo, M., et al. (2021). Variational quantum algorithms.
+- Schuld, M., et al. (2019). Evaluating analytic gradients on quantum hardware for hybrid quantum-classical algorithms.
+- Google Quantum AI: TensorFlow Quantum (documentação).
+- Cirq (documentação oficial): construção e simulação de circuitos quânticos.
+
+17. Anexos e Artefatos
+----------------------
+- Diagramas de circuito: output/circuit_diagrams/...
+- Esferas de Bloch e trajetórias: output/bloch_spheres/...
+- Notas teóricas: output/runs/.../theoretical_notes.txt/png
+- Checkpoints de modelo: output/CKPT_MAIN_DIR e output/CKPT_FINAL_DIR (conforme o código)
+- Histórico de HPO: hpo_trials.csv
+
+Observação Final
+----------------
+Este documento foi gerado automaticamente a partir do pipeline implementado, para suporte à redação científica (SciELO/CNPq). Ajustes finais podem incluir números de épocas, tamanhos de batch, acurácia/F1/AUC, curvas de aprendizado e detalhes de versões exatas de dependências, conforme a última execução no seu ambiente.
+
+
+
+18. Métricas do Último Run
+-------------------------
+- Acurácia: não encontrada em classification_report
+- F1-score (macro): não encontrado em classification_report
+- AUC-ROC: não encontrado (roc_auc_*.json)
+
+
+19. Métricas de Teste e Intervalos de Confiança
+----------------------------------------------
+
+
+20. Resumo dos Algoritmos Quânticos Avançados
+-------------------------------------------
+Demonstração de Algoritmos Quânticos Avançados
+================================================
+
+## VQE
+- ground_state_energy: -0.997575
+- optimal_params: [6.24897401 6.27590283 6.25859689 3.08960914 3.17355851 6.28318531
+ 6.2287166  3.1142817 ]
+- iterations: 50.000000
+- converged: False
+
+## QAOA
+- max_expectation: 2.511605
+- optimal_gamma: [2.6644296  3.94868408]
+- optimal_beta: [2.37712931 5.92255985]
+- iterations: 50.000000
+- converged: False
+
+## QNN
+- final_loss: 0.039483
+- optimal_params: [ 1.78418683e+00  3.19114712e+00  5.68844315e+00  1.11312887e+00
+  5.60973539e+00  2.70070223e+00  1.14193924e+00  3.29684106e+00
+  1.22126418e+00  5.57918781e+00  7.06118333e-01  6.17779078e-01
+  6.21980634e+00  5.22086574e-01  2.24571115e+00  3.36556116e+00
+  1.99493200e-17  4.27630323e+00 -8.64327054e-17  3.44228465e+00
+  2.15752922e+00  4.84481035e+00  3.82077419e+00  3.88946548e-02]
+- iterations: 200.000000
+- converged: False
+
+## AQC
+- final_energy: 1.000000
+- final_overlap: 1.000000
+- energies: [np.float64(0.0), np.float64(0.020408163265306124), np.float64(0.04081632653061225), np.float64(0.061224489795918366), np.float64(0.0816326530612245), np.float64(0.10204081632653061), np.float64(0.12244897959183673), np.float64(0.14285714285714285), np.float64(0.163265306122449), np.float64(0.1836734693877551), np.float64(0.20408163265306123), np.float64(0.22448979591836737), np.float64(0.24489795918367346), np.float64(0.26530612244897955), np.float64(0.2857142857142857), np.float64(0.30612244897959184), np.float64(0.326530612244898), np.float64(0.3469387755102041), np.float64(0.3673469387755102), np.float64(0.38775510204081637), np.float64(0.40816326530612246), np.float64(0.42857142857142855), np.float64(0.44897959183673475), np.float64(0.46938775510204084), np.float64(0.4897959183673469), np.float64(0.5102040816326531), np.float64(0.5306122448979591), np.float64(0.5510204081632654), np.float64(0.5714285714285714), np.float64(0.5918367346938775), np.float64(0.6122448979591837), np.float64(0.6326530612244898), np.float64(0.653061224489796), np.float64(0.673469387755102), np.float64(0.6938775510204082), np.float64(0.7142857142857143), np.float64(0.7346938775510204), np.float64(0.7551020408163265), np.float64(0.7755102040816327), np.float64(0.7959183673469388), np.float64(0.8163265306122449), np.float64(0.8367346938775511), np.float64(0.8571428571428571), np.float64(0.8775510204081632), np.float64(0.8979591836734695), np.float64(0.9183673469387756), np.float64(0.9387755102040817), np.float64(0.9591836734693878), np.float64(0.9795918367346939), np.float64(1.0)]
+- overlaps: [np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0)]
+- times: [0.         0.10204082 0.20408163 0.30612245 0.40816327 0.51020408
+ 0.6122449  0.71428571 0.81632653 0.91836735 1.02040816 1.12244898
+ 1.2244898  1.32653061 1.42857143 1.53061224 1.63265306 1.73469388
+ 1.83673469 1.93877551 2.04081633 2.14285714 2.24489796 2.34693878
+ 2.44897959 2.55102041 2.65306122 2.75510204 2.85714286 2.95918367
+ 3.06122449 3.16326531 3.26530612 3.36734694 3.46938776 3.57142857
+ 3.67346939 3.7755102  3.87755102 3.97959184 4.08163265 4.18367347
+ 4.28571429 4.3877551  4.48979592 4.59183673 4.69387755 4.79591837
+ 4.89795918 5.        ]
+
+## QEC
+- initial_fidelity: 0.900000
+- final_fidelity: 0.975000
+- error_reduction: -0.075000
+- rounds: 3.000000

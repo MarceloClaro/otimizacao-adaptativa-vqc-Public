@@ -1,0 +1,9 @@
+Título: Architecture Comparison (PNG)
+Arquivo: C:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\QUANTUM\CIRQ E TENSORFLOW\CascadeProjects\windsurf-project\output\runs\20250914_121438\figures\architecture_comparison_20250914_121506.png
+Timestamp: 14/09/2025-12:15:06
+Interpretação:
+Comparação de arquiteturas por desempenho.
+
+Cálculos e Fórmulas:
+Parâmetros: |θ| = L * n_qubits
+CNOT total ≈ L * CNOT/layer (heurística por topologia)
